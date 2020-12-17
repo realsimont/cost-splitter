@@ -1,0 +1,61 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Cost Splitter</title>
+
+</head>
+
+<body>
+    <div class="full-page-area">
+        <div class="form-area">
+            <div id="add-person-div">
+                <input type="button" id="add-person" value="Add Person" onclick="addPerson()">
+            </div>
+            <div id="person-0-div">
+                <input type="text" id="name-0" placeholder="Name 1">
+                <input type="text" id="amount-0" placeholder="Amount 1">
+            </div>
+            <div id="person-1-div">
+                <input type="text" id="name-1" placeholder="Name 2">
+                <input type="text" id="amoun-1" placeholder="Amount 2">
+            </div>
+            <div id="script-added-inputs-div">
+                <!-- JS will add inputs here -->
+            </div>
+            <div id="calculate-split-div">
+                <input type="button" id="calculate-split" value="Calculate Split" onclick="calculateSplit">
+            </div>
+        </div>
+    </div>
+    <script>
+        var count = 2; // 
+        function addPerson() {
+            //create a name input and give it all the attributes it needs: id, text, placeholder
+            //assign it the id and placeholder etc. based on the current count
+            //append it to the script added inputs div
+            //repeat for amount input
+            let personInputDiv = document.createElement("div");
+            personInputDiv.id = "person-" + count + "-div";
+            personInputDiv.classList.add("person-div");
+            document.getElementById("script-added-inputs-div").appendChild(personInputDiv);
+            let nameInput = document.createElement("input");
+            nameInput.id = "name-" + count;
+            nameInput.placeholder = "Name " + (count + 1);
+            personInputDiv.appendChild(nameInput);
+            let amountInput = document.createElement("input");
+            amountInput.id = "amount-" + count;
+            amountInput.placeholder = "Amount " + (count + 1);
+            personInputDiv.appendChild(amountInput);
+            count++;
+        }
+
+        function buildSortedAmountArray() {
+            
+        }
+
+    </script>
+</body>
+</html>
