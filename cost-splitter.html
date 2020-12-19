@@ -20,13 +20,13 @@
             </div>
             <div id="person-1-div">
                 <input type="text" id="name-1" placeholder="Name 2">
-                <input type="text" id="amoun-1" placeholder="Amount 2">
+                <input type="text" id="amount-1" placeholder="Amount 2">
             </div>
             <div id="script-added-inputs-div">
                 <!-- JS will add inputs here -->
             </div>
             <div id="calculate-split-div">
-                <input type="button" id="calculate-split" value="Calculate Split" onclick="calculateSplit">
+                <input type="button" id="calculate-split" value="Calculate Split" onclick="getAverage(); buildSortedPeopleArray(); calculateSplit();";>
             </div>
         </div>
     </div>
@@ -51,9 +51,68 @@
             personInputDiv.appendChild(amountInput);
             count++;
         }
+        
+        //find average of amounts
+        var amounts = [];
+        var avg;
+        function getAverage(){
+            for (i=0; i<count; i++) {
+                amounts.push(document.getElementById("amount-" + i).value);
+            }
+            console.log(amounts);
+            var total = 0;
+            for (i=0; i<amounts.length; i++) {
+            total += parseInt(amounts[i]);
+            }
+            avg = total / amounts.length;
+            console.log(avg);
+        }
+        //build an array of person objects with name and values
+        var sortedPeopleArray = [];
+        function buildSortedPeopleArray() {
+            for (i=0; i<count; i++) {
+                let amountInput = document.getElementById("amount-" + i).value;
+                let person = {
+                    name: document.getElementById("name-" + i).value,
+                    amountPaid: document.getElementById("amount-" + i).value,
+                    isSettled: false,
+                    diffFromAvg: Math.abs(avg - amountInput),
+                }
+                sortedPeopleArray.push(person);
+            }
+            sortedPeopleArray.sort((a, b) => (a.amountPaid - b.amountPaid));
+            console.log(sortedPeopleArray);
+        }
 
-        function buildSortedAmountArray() {
-            
+
+        function calculateSplit() {
+            let top = sortedPeopleArray.length - 1;
+            for (i=0; i<sortedPeopleArray.length; i++) {
+                if (i >= top) {
+                    break;
+                } else {
+                    if (sortedPeopleArray[i].diffFromAvg < sortedPeopleArray[top].diffFromAvg) {
+                        console.log(`${sortedPeopleArray[i].name} pays ${sortedPeopleArray[top].name} ${sortedPeopleArray[i].diffFromAvg}`);
+                        sortedPeopleArray[top].diffFromAvg -= sortedPeopleArray[i].diffFromAvg;
+                        sortedPeopleArray[i].diffFromAvg = 0;
+                        sortedPeopleArray[i].isSettled = true;
+                    } else if (sortedPeopleArray[i].diffFromAvg > sortedPeopleArray[top].diffFromAvg) {
+                        console.log(`${sortedPeopleArray[i].name} pays ${sortedPeopleArray[top].name} ${sortedPeopleArray[top].diffFromAvg}`);
+                        sortedPeopleArray[i].diffFromAvg -= sortedPeopleArray[top].diffFromAvg;
+                        sortedPeopleArray[top].diffFromAvg = 0;
+                        sortedPeopleArray[top].isSettled = true;
+                        top--;
+                        i--;
+                    } else if (sortedPeopleArray[i].diffFromAvg === sortedPeopleArray[top].diffFromAvg) {
+                        console.log(`${sortedPeopleArray[i].name} pays ${sortedPeopleArray[top].name} ${sortedPeopleArray[i].diffFromAvg}`);
+                        sortedPeopleArray[top].diffFromAvg = 0;
+                        sortedPeopleArray[top].isSettled = true;
+                        sortedPeopleArray[i].diffFromAvg = 0;
+                        sortedPeopleArray[i].isSettled = true;
+                        top--;
+                    }
+                }
+            }
         }
 
     </script>
