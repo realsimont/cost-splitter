@@ -2,34 +2,45 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
 
-  <title>Cost Splitter</title>
+    <title>Cost Splitter</title>
+        <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
     <div class="full-page-area">
         <div class="form-area">
+            <div id="logo-area">
+                <img src="https://via.placeholder.com/468x60" />
+            </div>
             <div id="add-person-div">
-                <input type="button" id="add-person" value="Add Person" onclick="addPerson()">
+                <input type="button" id="btn-add-person" value="Add Person" onclick="addPerson()">
             </div>
-            <div id="person-0-div">
-                <input type="text" id="name-0" placeholder="Name 1">
-                <input type="text" id="amount-0" placeholder="Amount 1">
+            <div id="person-0-div" class="person-div">
+                <input type="text" id="name-0" placeholder="Name 1" class="name">
+                <input type="text" id="amount-0" placeholder="Amount 1" class="amount">
             </div>
-            <div id="person-1-div">
-                <input type="text" id="name-1" placeholder="Name 2">
-                <input type="text" id="amount-1" placeholder="Amount 2">
+            <div id="person-1-div" class="person-div">
+                <input type="text" id="name-1" placeholder="Name 2" class="name">
+                <input type="text" id="amount-1" placeholder="Amount 2" class="amount">
             </div>
             <div id="script-added-inputs-div">
                 <!-- JS will add inputs here -->
             </div>
             <div id="calculate-split-div">
-                <input type="button" id="calculate-split" value="Calculate Split" onclick="getAverage(); buildSortedPeopleArray(); calculateSplit();";>
+                <input type="button" id="btn-calculate-split" value="Calculate Split" onclick="getAverage(); buildSortedPeopleArray(); calculateSplit();";>
+            </div>
+            <div id="results-area">
+                <p>JS will add results here</p>
+                <!-- JS will add results here -->
             </div>
         </div>
     </div>
+    
+    
+
     <script>
         var count = 2; // 
         function addPerson() {
@@ -43,11 +54,15 @@
             document.getElementById("script-added-inputs-div").appendChild(personInputDiv);
             let nameInput = document.createElement("input");
             nameInput.id = "name-" + count;
+            nameInput.type = "text";
             nameInput.placeholder = "Name " + (count + 1);
+            nameInput.classList.add("name");
             personInputDiv.appendChild(nameInput);
             let amountInput = document.createElement("input");
             amountInput.id = "amount-" + count;
+            amountInput.type = "text";
             amountInput.placeholder = "Amount " + (count + 1);
+            amountInput.classList.add("amount");
             personInputDiv.appendChild(amountInput);
             count++;
         }
@@ -84,8 +99,11 @@
             console.log(sortedPeopleArray);
         }
 
+        //error validation functions - check that amount inputs are numbers
 
         function calculateSplit() {
+            let resultsArea = document.getElementById("results-area");
+            let result;
             let top = sortedPeopleArray.length - 1;
             for (i=0; i<sortedPeopleArray.length; i++) {
                 if (i >= top) {
