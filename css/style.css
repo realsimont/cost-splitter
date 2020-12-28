@@ -1,3 +1,8 @@
+body {
+    background: url("../images/cost-splitter-background-1500x1000.jpg");
+    background-size: auto;
+}
+
 .full-page-area {
     display: flex;
 }
@@ -12,10 +17,6 @@
     padding-bottom: 35px;
     padding-left: 35px;
     padding-right: 35px;
-}
-
-h1 {
-    color: red;
 }
 
 #logo-area {
@@ -34,7 +35,8 @@ h1 {
     margin-left: 5px;
 }
 
-input[type=text] {
+input[type=text], input[type=number] {
+    width: 100%;
     height: 50px;
     margin-top: 7px;
     margin-bottom: 7px;
@@ -49,7 +51,7 @@ input[type=text] {
     font-family: "Source Sans Pro", sans-serif;
 }
 
-#btn-calculate-split {
+.btn {
     width: 100%;
     height: 55px;
     background: #2364d2;
@@ -65,18 +67,26 @@ input[type=text] {
     cursor: pointer;
 }
 
-#btn-add-person {
-    width: 100%;
-    height: 55px;
-    background: #2364d2;
-    border: none;
-    border-radius: 5px;
-    font-size: 22px;
-    font-weight: 500;
+#btn-calculate-split {
+    margin-bottom: 30px;
+}
+
+.btn-pressed {
+    background-color: red;
+}
+
+p, a {
     font-family: "Source Sans Pro", sans-serif;
-    box-shadow: 3px 10px 20px 0px rgba(35, 100, 210, 0.3);
-    color: #fff;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    cursor: pointer;
+}
+
+a {
+    color: grey;
+}
+
+#clear {
+    line-height: 40px;
+}
+
+#result-heading {
+    font-weight: bold;
 }

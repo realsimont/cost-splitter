@@ -6,34 +6,37 @@
 
     <title>Cost Splitter</title>
         <link rel="stylesheet" href="css/style.css">
-
+        <script src="js/scripts.js"></script>
 </head>
 
 <body>
     <div class="full-page-area">
         <div class="form-area">
             <div id="logo-area">
-                <img src="https://via.placeholder.com/468x60" />
+                <img src="https://picsum.photos/468/60" />
             </div>
             <div id="add-person-div">
-                <input type="button" id="btn-add-person" value="Add Person" onclick="addPerson()">
+                <input type="button" id="btn-add-person" class="btn" value="Add Person" onclick="addPerson()">
             </div>
             <div id="person-0-div" class="person-div">
                 <input type="text" id="name-0" placeholder="Name 1" class="name">
-                <input type="text" id="amount-0" placeholder="Amount 1" class="amount">
+                <input type="number" id="amount-0" placeholder="Amount 1" class="amount">
             </div>
             <div id="person-1-div" class="person-div">
                 <input type="text" id="name-1" placeholder="Name 2" class="name">
-                <input type="text" id="amount-1" placeholder="Amount 2" class="amount">
+                <input type="number" id="amount-1" placeholder="Amount 2" class="amount">
             </div>
             <div id="script-added-inputs-div">
                 <!-- JS will add inputs here -->
             </div>
             <div id="calculate-split-div">
-                <input type="button" id="btn-calculate-split" value="Calculate Split" onclick="getAverage(); buildSortedPeopleArray(); calculateSplit();";>
+                <input type="button" id="btn-calculate-split" class="btn" value="Calculate Split" onclick="getAverage(); buildSortedPeopleArray(); calculateSplit(); changeCalcButton();";>
+            </div>
+            <div id="clear-div">
+                <a href="#" id="clear" onclick="clearAll(); return false;">Clear All</a>
             </div>
             <div id="results-area">
-                <p>JS will add results here</p>
+                <p id="result-heading">Results:</p>
                 <!-- JS will add results here -->
             </div>
         </div>
@@ -41,98 +44,5 @@
     
     
 
-    <script>
-        var count = 2; // 
-        function addPerson() {
-            //create a name input and give it all the attributes it needs: id, text, placeholder
-            //assign it the id and placeholder etc. based on the current count
-            //append it to the script added inputs div
-            //repeat for amount input
-            let personInputDiv = document.createElement("div");
-            personInputDiv.id = "person-" + count + "-div";
-            personInputDiv.classList.add("person-div");
-            document.getElementById("script-added-inputs-div").appendChild(personInputDiv);
-            let nameInput = document.createElement("input");
-            nameInput.id = "name-" + count;
-            nameInput.type = "text";
-            nameInput.placeholder = "Name " + (count + 1);
-            nameInput.classList.add("name");
-            personInputDiv.appendChild(nameInput);
-            let amountInput = document.createElement("input");
-            amountInput.id = "amount-" + count;
-            amountInput.type = "text";
-            amountInput.placeholder = "Amount " + (count + 1);
-            amountInput.classList.add("amount");
-            personInputDiv.appendChild(amountInput);
-            count++;
-        }
-        
-        //find average of amounts
-        var amounts = [];
-        var avg;
-        function getAverage(){
-            for (i=0; i<count; i++) {
-                amounts.push(document.getElementById("amount-" + i).value);
-            }
-            console.log(amounts);
-            var total = 0;
-            for (i=0; i<amounts.length; i++) {
-            total += parseInt(amounts[i]);
-            }
-            avg = total / amounts.length;
-            console.log(avg);
-        }
-        //build an array of person objects with name and values
-        var sortedPeopleArray = [];
-        function buildSortedPeopleArray() {
-            for (i=0; i<count; i++) {
-                let amountInput = document.getElementById("amount-" + i).value;
-                let person = {
-                    name: document.getElementById("name-" + i).value,
-                    amountPaid: document.getElementById("amount-" + i).value,
-                    isSettled: false,
-                    diffFromAvg: Math.abs(avg - amountInput),
-                }
-                sortedPeopleArray.push(person);
-            }
-            sortedPeopleArray.sort((a, b) => (a.amountPaid - b.amountPaid));
-            console.log(sortedPeopleArray);
-        }
-
-        //error validation functions - check that amount inputs are numbers
-
-        function calculateSplit() {
-            let resultsArea = document.getElementById("results-area");
-            let result;
-            let top = sortedPeopleArray.length - 1;
-            for (i=0; i<sortedPeopleArray.length; i++) {
-                if (i >= top) {
-                    break;
-                } else {
-                    if (sortedPeopleArray[i].diffFromAvg < sortedPeopleArray[top].diffFromAvg) {
-                        console.log(`${sortedPeopleArray[i].name} pays ${sortedPeopleArray[top].name} ${sortedPeopleArray[i].diffFromAvg}`);
-                        sortedPeopleArray[top].diffFromAvg -= sortedPeopleArray[i].diffFromAvg;
-                        sortedPeopleArray[i].diffFromAvg = 0;
-                        sortedPeopleArray[i].isSettled = true;
-                    } else if (sortedPeopleArray[i].diffFromAvg > sortedPeopleArray[top].diffFromAvg) {
-                        console.log(`${sortedPeopleArray[i].name} pays ${sortedPeopleArray[top].name} ${sortedPeopleArray[top].diffFromAvg}`);
-                        sortedPeopleArray[i].diffFromAvg -= sortedPeopleArray[top].diffFromAvg;
-                        sortedPeopleArray[top].diffFromAvg = 0;
-                        sortedPeopleArray[top].isSettled = true;
-                        top--;
-                        i--;
-                    } else if (sortedPeopleArray[i].diffFromAvg === sortedPeopleArray[top].diffFromAvg) {
-                        console.log(`${sortedPeopleArray[i].name} pays ${sortedPeopleArray[top].name} ${sortedPeopleArray[i].diffFromAvg}`);
-                        sortedPeopleArray[top].diffFromAvg = 0;
-                        sortedPeopleArray[top].isSettled = true;
-                        sortedPeopleArray[i].diffFromAvg = 0;
-                        sortedPeopleArray[i].isSettled = true;
-                        top--;
-                    }
-                }
-            }
-        }
-
-    </script>
 </body>
 </html>
