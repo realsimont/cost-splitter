@@ -54,6 +54,7 @@ function buildSortedPeopleArray() {
 //calculate hasn't been pressed already, 
 //stop if 2 people have same name (or give them different names)
 //clear button
+//round to 2 decimal points
 
 
 //main cost splitting algorithm

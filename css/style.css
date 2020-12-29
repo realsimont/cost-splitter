@@ -1,5 +1,6 @@
 body {
-    background: url("../images/cost-splitter-background-1500x1000.jpg");
+    background: rgb(208,204,208);
+background: linear-gradient(90deg, rgba(208,204,208,1) 0%, rgba(170,166,181,0.8533788515406162) 100%);
     background-size: auto;
 }
 
@@ -19,8 +20,30 @@ body {
     padding-right: 35px;
 }
 
+@media only screen and (max-width: 480px) {
+    .form-area {
+        width: 100%;
+        margin: auto;
+    }
+}
+
 #logo-area {
     margin: auto;
+}
+
+#logo {
+    width: 100%;
+}
+
+@media only screen and (max-width: 480px) {
+    #logo-area {
+        width: 100%;
+        margin: auto;
+    }
+    #logo {
+        width: 100%;
+        margin: auto;
+    }
 }
 
 .person-div {
@@ -54,7 +77,8 @@ input[type=text], input[type=number] {
 .btn {
     width: 100%;
     height: 55px;
-    background: #2364d2;
+    background: rgb(131,58,180);
+    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
     border: none;
     border-radius: 5px;
     font-size: 22px;
