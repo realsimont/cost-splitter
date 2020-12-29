@@ -1,6 +1,6 @@
 body {
     background: rgb(208,204,208);
-background: linear-gradient(90deg, rgba(208,204,208,1) 0%, rgba(170,166,181,0.8533788515406162) 100%);
+    background: linear-gradient(90deg, rgba(208,204,208,1) 0%, rgba(170,166,181,0.8533788515406162) 100%);
     background-size: auto;
 }
 
@@ -9,6 +9,7 @@ background: linear-gradient(90deg, rgba(208,204,208,1) 0%, rgba(170,166,181,0.85
 }
 
 .form-area {
+    max-width: 500px;
     margin: auto;
     margin-top: 30px;
     background: #fff;
@@ -96,11 +97,15 @@ input[type=text], input[type=number] {
 }
 
 .btn-pressed {
-    background-color: red;
+    background: red !important;
 }
 
-p, a {
+p, a, h1, h2, h3 {
     font-family: "Source Sans Pro", sans-serif;
+}
+
+.description {
+    line-height: 25px;
 }
 
 a {

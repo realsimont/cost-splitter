@@ -49,16 +49,9 @@ function buildSortedPeopleArray() {
     sortedPeopleArray.sort((a, b) => (a.amountPaid - b.amountPaid));
 }
 
-//error validation functions - 
-//check that amount inputs are numbers, 
-//calculate hasn't been pressed already, 
-//stop if 2 people have same name (or give them different names)
-//clear button
-//round to 2 decimal points
-
-
 //main cost splitting algorithm
 function calculateSplit() {
+    //if calculate has been split, request user clears/refreshes
     if (document.getElementById("btn-calculate-split").classList.contains("btn-pressed")) {
         let result = document.createElement("p");
         result.classList.add("result");
@@ -73,7 +66,7 @@ function calculateSplit() {
                 if (sortedPeopleArray[i].diffFromAvg < sortedPeopleArray[top].diffFromAvg) {
                     let result = document.createElement("p");
                     result.classList.add("result");
-                    result.innerHTML = `${sortedPeopleArray[i].name} pays ${sortedPeopleArray[top].name} $${sortedPeopleArray[i].diffFromAvg}.`;
+                    result.innerHTML = `${sortedPeopleArray[i].name} pays ${sortedPeopleArray[top].name} $${sortedPeopleArray[i].diffFromAvg.toFixed(2)}.`;
                     document.getElementById("results-area").appendChild(result);
                     sortedPeopleArray[top].diffFromAvg -= sortedPeopleArray[i].diffFromAvg;
                     sortedPeopleArray[i].diffFromAvg = 0;
@@ -81,7 +74,7 @@ function calculateSplit() {
                 } else if (sortedPeopleArray[i].diffFromAvg > sortedPeopleArray[top].diffFromAvg) {
                     let result = document.createElement("p");
                     result.classList.add("result");
-                    result.innerHTML = `${sortedPeopleArray[i].name} pays ${sortedPeopleArray[top].name} $${sortedPeopleArray[i].diffFromAvg}.`;
+                    result.innerHTML = `${sortedPeopleArray[i].name} pays ${sortedPeopleArray[top].name} $${sortedPeopleArray[i].diffFromAvg.toFixed(2)}.`;
                     document.getElementById("results-area").appendChild(result);
                     sortedPeopleArray[i].diffFromAvg -= sortedPeopleArray[top].diffFromAvg;
                     sortedPeopleArray[top].diffFromAvg = 0;
@@ -91,7 +84,7 @@ function calculateSplit() {
                 } else if (sortedPeopleArray[i].diffFromAvg === sortedPeopleArray[top].diffFromAvg) {
                     let result = document.createElement("p");
                     result.classList.add("result");
-                    result.innerHTML = `${sortedPeopleArray[i].name} pays ${sortedPeopleArray[top].name} $${sortedPeopleArray[i].diffFromAvg}.`;
+                    result.innerHTML = `${sortedPeopleArray[i].name} pays ${sortedPeopleArray[top].name} $${sortedPeopleArray[i].diffFromAvg.toFixed(2)}.`;
                     document.getElementById("results-area").appendChild(result);
                     sortedPeopleArray[top].diffFromAvg = 0;
                     sortedPeopleArray[top].isSettled = true;
@@ -104,7 +97,7 @@ function calculateSplit() {
     }
 }
 
-//change calculate split button to red when pushed
+//change calculate split button colour when pushed
 //when this button changes, the calculate function can't be called again until the page is refreshed
 function changeCalcButton() {
     document.getElementById("btn-calculate-split").classList.add("btn-pressed");
