@@ -53,10 +53,9 @@ function buildSortedPeopleArray() {
 function calculateSplit() {
     //if calculate has been split, request user clears/refreshes
     if (document.getElementById("btn-calculate-split").classList.contains("btn-pressed")) {
-        let result = document.createElement("p");
-        result.classList.add("result");
-        result.innerHTML = `Click "Clear All", then try again.`;
-        document.getElementById("results-area").appendChild(result);
+        printAlreadyCalculated();
+        //add else if for fields not filled
+        //add else if for non-numbers in amounts
     } else {
         let top = sortedPeopleArray.length - 1;
         for (i=0; i<sortedPeopleArray.length; i++) {
@@ -106,4 +105,25 @@ function changeCalcButton() {
 //refresh page and clear values
 function clearAll() {
     location.reload();
+}
+
+function printFillAllFields() {
+    let result = document.createElement("p");
+        result.classList.add("result");
+        result.innerHTML = `Make sure you have filled all fields. Click "Clear All" and try again.`;
+        document.getElementById("results-area").appendChild(result);
+}
+
+function printNumbersOnly() {
+    let result = document.createElement("p");
+        result.classList.add("result");
+        result.innerHTML = `Make sure you have only entered numbers in the "Amount" fields. Click "Clear All" and try again.`;
+        document.getElementById("results-area").appendChild(result);
+}
+
+function printAlreadyCalculated() {
+    let result = document.createElement("p");
+        result.classList.add("result");
+        result.innerHTML = `You've already calculated - click "Clear All", then try again.`;
+        document.getElementById("results-area").appendChild(result);
 }
