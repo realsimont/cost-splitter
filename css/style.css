@@ -97,7 +97,7 @@ input[type=text], input[type=number] {
 }
 
 .btn-pressed {
-    background: red !important;
+    background: #ED254E !important;
 }
 
 p, a, h1, h2, h3 {
@@ -106,6 +106,10 @@ p, a, h1, h2, h3 {
 
 .description {
     line-height: 25px;
+}
+
+.description-header {
+    text-align: center;
 }
 
 a {
